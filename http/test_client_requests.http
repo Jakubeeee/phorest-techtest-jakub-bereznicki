@@ -1,0 +1,16 @@
+###
+POST http://localhost:8080/save
+Content-Type: application/json
+
+{
+  "identifier": "test_identifier",
+  "firstName": "grzegorz",
+  "lastName": "brzeczyszczykiewicz",
+  "email": "grzegorz.brzeczyszczykiewicz@mail.com",
+  "phone": "123456789",
+  "gender": "MALE",
+  "banned": false
+}
+
+###
+GET http://localhost:8080/fetch/test_identifier
