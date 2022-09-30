@@ -31,7 +31,6 @@ public class ClientController {
 
     @GetMapping(path = "/fetch/{identifier}", produces = APPLICATION_JSON_VALUE)
     public ClientDTO fetch(@PathVariable @NonNull String identifier) {
-        // TODO validate identifier not empty
         var entity = service.fetch(identifier);
         return map(entity);
     }
@@ -42,8 +41,10 @@ public class ClientController {
     }
 
     @PatchMapping(path = "/update", consumes = APPLICATION_JSON_VALUE)
-    public void update(@RequestBody @NonNull ClientDTO client) {
-        // TODO
+    public void update(@RequestBody @NonNull @Valid UpdatedClientDTO client) {
+        var currentEntity = service.fetch(client.identifier());
+        var updatedEntity = map(client, currentEntity);
+        service.update(updatedEntity);
     }
 
     @DeleteMapping(path = "/delete/{identifier}")

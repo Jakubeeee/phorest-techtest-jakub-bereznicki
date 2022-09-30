@@ -105,17 +105,6 @@ final class ClientControllerTest {
             // THEN
             result.andExpect(status().isNotFound());
         }
-
-        private ClientEntity entity() {
-            return new ClientEntity(
-                    "test_identifier",
-                    "test_first_name",
-                    "test_last_name",
-                    "test.email@mail.com",
-                    "123456789",
-                    MALE,
-                    false);
-        }
     }
 
     @Nested
@@ -125,7 +114,33 @@ final class ClientControllerTest {
 
     @Nested
     final class ClientUpdatingTest {
-        // TODO
+        private static final String ENDPOINT_URL = "/client/update";
+
+        @Test
+        void shouldReturn200_whenUpdatingValidClient() throws Exception {
+            // GIVEN
+            var identifier = "test_identifier";
+            given(service.fetch(identifier)).willReturn(entity());
+
+            // WHEN
+            var result = mockMvc.perform(patch(ENDPOINT_URL)
+                    .contentType(APPLICATION_JSON)
+                    .content(VALID_CLIENT_NOT_FULL)
+            );
+            // THEN
+            result.andExpect(status().isOk());
+        }
+
+        @Test
+        void shouldReturn400_whenUpdatingInvalidClientWithoutIdentifier() throws Exception {
+            // WHEN
+            var result = mockMvc.perform(patch(ENDPOINT_URL)
+                    .contentType(APPLICATION_JSON)
+                    .content(INVALID_CLIENT_NOT_FULL_MISSING_IDENTIFIER)
+            );
+            // THEN
+            result.andExpect(status().isBadRequest());
+        }
     }
 
     @Nested
@@ -156,4 +171,14 @@ final class ClientControllerTest {
         }
     }
 
+    private ClientEntity entity() {
+        return new ClientEntity(
+                "test_identifier",
+                "test_first_name",
+                "test_last_name",
+                "test.email@mail.com",
+                "123456789",
+                MALE,
+                false);
+    }
 }

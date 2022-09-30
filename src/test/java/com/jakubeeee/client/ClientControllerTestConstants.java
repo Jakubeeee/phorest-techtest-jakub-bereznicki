@@ -186,4 +186,21 @@ final class ClientControllerTestConstants {
                 "banned": other
             }
             """;
+
+    static final String VALID_CLIENT_NOT_FULL = """
+            {
+                "identifier": "test_identifier",
+                "lastName": "test_last_name",
+                "email": "test.email@mail.com",
+                "banned": false
+            }
+            """;
+
+    static final String INVALID_CLIENT_NOT_FULL_MISSING_IDENTIFIER = """
+            {
+                "lastName": "test_last_name",
+                "email": "test.email@mail.com",
+                "banned": false
+            }
+            """;
 }

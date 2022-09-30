@@ -20,6 +20,10 @@ public class ClientService {
                 .orElseThrow(() -> new DataNotFoundException(ClientEntity.class, identifier));
     }
 
+    public void update(@NonNull ClientEntity client) {
+        repository.save(client);
+    }
+
     public void delete(@NonNull String identifier) {
         repository.deleteByIdentifier(identifier);
     }

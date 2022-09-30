@@ -14,3 +14,17 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/client/fetch/test_identifier
+
+###
+PATCH http://localhost:8080/client/update
+Content-Type: application/json
+
+{
+  "identifier": "test_identifier",
+  "firstName": "grzegorz",
+  "email": "grzegorz.brzeczyszczykiewicz2@mail.com",
+  "phone": "987654321"
+}
+
+###
+DELETE http://localhost:8080/client/delete/test_identifier

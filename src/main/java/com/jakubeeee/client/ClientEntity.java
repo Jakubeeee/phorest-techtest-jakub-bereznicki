@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import static javax.persistence.EnumType.STRING;
 
-@Getter
+@Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @AllArgsConstructor
@@ -19,26 +19,26 @@ import static javax.persistence.EnumType.STRING;
 @Table(name = "CLIENTS")
 public class ClientEntity extends JpaEntity {
 
-    @Column(name = "IDENTIFIER", nullable = false, updatable = false)
+    @Column(name = "IDENTIFIER", unique = true, nullable = false, updatable = false)
     private String identifier;
 
-    @Column(name = "FIRST_NAME", nullable = false, updatable = false)
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
-    @Column(name = "LAST_NAME", nullable = false, updatable = false)
+    @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @Column(name = "EMAIL", nullable = false, updatable = false)
+    @Column(name = "EMAIL", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "PHONE", nullable = false, updatable = false)
+    @Column(name = "PHONE", unique = true, nullable = false)
     private String phone;
 
     @Enumerated(value = STRING)
-    @Column(name = "GENDER", nullable = false, updatable = false)
+    @Column(name = "GENDER", nullable = false)
     private Gender gender;
 
-    @Column(name = "BANNED", nullable = false, updatable = false)
+    @Column(name = "BANNED", nullable = false)
     private boolean banned;
 
 }
