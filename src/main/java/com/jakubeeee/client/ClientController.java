@@ -4,20 +4,21 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
-@RestController("/client")
+@RequestMapping("/client")
+@RestController
 public class ClientController {
 
     private final ClientService service;
 
     @PostMapping(path = "/save", consumes = APPLICATION_JSON_VALUE)
-    public void save(@RequestBody @NonNull ClientDTO client) {
-        // TODO validate dto
+    public void save(@RequestBody @NonNull @Valid ClientDTO client) {
         var entity = ClientDTOMapper.map(client);
         service.save(entity);
     }

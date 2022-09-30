@@ -1,14 +1,16 @@
 package com.jakubeeee.client;
 
-import lombok.NonNull;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public record ClientDTO(
-        @NonNull String identifier,
-        @NonNull String firstName,
-        @NonNull String lastName,
-        @NonNull String email,
-        @NonNull String phone,
-        @NonNull Gender gender,
+        @NotBlank String identifier,
+        @NotBlank String firstName,
+        @NotBlank String lastName,
+        @NotBlank @Email String email,
+        @NotBlank String phone,
+        @NotNull Gender gender,
         boolean banned
 ) {
 }
