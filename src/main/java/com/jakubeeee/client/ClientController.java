@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.jakubeeee.client.ClientDTOMapper.map;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class ClientController {
 
     @PostMapping(path = "/save", consumes = APPLICATION_JSON_VALUE)
     public void save(@RequestBody @NonNull @Valid ClientDTO client) {
-        var entity = ClientDTOMapper.map(client);
+        var entity = map(client);
         service.save(entity);
     }
 
@@ -32,7 +33,7 @@ public class ClientController {
     public ClientDTO fetch(@PathVariable @NonNull String identifier) {
         // TODO validate identifier not empty
         var entity = service.fetch(identifier);
-        return ClientDTOMapper.map(entity);
+        return map(entity);
     }
 
     @GetMapping(path = "/fetchTopClients", produces = APPLICATION_JSON_VALUE) // TODO local date?
@@ -47,7 +48,7 @@ public class ClientController {
 
     @DeleteMapping(path = "/delete/{identifier}")
     public void delete(@PathVariable @NonNull String identifier) {
-        // TODO
+        service.delete(identifier);
     }
 
 }

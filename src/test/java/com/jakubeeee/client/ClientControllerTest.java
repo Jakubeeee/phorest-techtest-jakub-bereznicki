@@ -13,8 +13,7 @@ import static com.jakubeeee.client.ClientControllerTestConstants.*;
 import static com.jakubeeee.client.Gender.MALE;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -131,7 +130,30 @@ final class ClientControllerTest {
 
     @Nested
     final class ClientDeletingTest {
-        // TODO
+        private static final String ENDPOINT_URL = "/client/delete/";
+
+        @Test
+        void shouldReturn200_whenDeletingWithProperIdentifier() throws Exception {
+            // GIVEN
+            var identifier = "test_identifier";
+
+            // WHEN
+            var result = mockMvc.perform(
+                    delete(ENDPOINT_URL + identifier)
+            );
+
+            // THEN
+            result.andExpect(status().isOk());
+        }
+
+        @Test
+        void shouldReturn404_whenDeletingWithoutIdentifier() throws Exception {
+            // WHEN
+            var result = mockMvc.perform(delete(ENDPOINT_URL));
+
+            // THEN
+            result.andExpect(status().isNotFound());
+        }
     }
 
 }

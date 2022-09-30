@@ -11,4 +11,6 @@ public interface ClientRepository extends CrudRepository<ClientEntity, Long> {
 
     Optional<ClientEntity> findByIdentifier(@NonNull String identifier);
 
+    void deleteByIdentifier(@NonNull String identifier);
+
 }
