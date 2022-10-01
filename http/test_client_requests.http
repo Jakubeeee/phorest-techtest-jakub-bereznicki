@@ -27,6 +27,9 @@ Content-Type: text/csv
 GET http://localhost:8080/client/fetch/test_identifier
 
 ###
+GET http://localhost:8080/client/fetchTopClients?amount=50&since=2018-01-01
+
+###
 PATCH http://localhost:8080/client/update
 Content-Type: application/json
 

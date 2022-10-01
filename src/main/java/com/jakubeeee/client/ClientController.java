@@ -3,6 +3,7 @@ package com.jakubeeee.client;
 import com.jakubeeee.misc.CsvFile;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.jakubeeee.client.ClientDTOMapper.map;
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
@@ -31,7 +33,7 @@ public class ClientController {
     }
 
     @PostMapping(path = "/bulkSave", consumes = MULTIPART_FORM_DATA_VALUE)
-    public void bulkSave(@Valid @CsvFile @RequestPart("file") MultipartFile file) throws IOException {
+    public void bulkSave(@Valid @CsvFile @RequestPart("file") @NonNull MultipartFile file) throws IOException {
         var data = file.getInputStream();
         service.bulkSave(data);
     }
@@ -42,13 +44,15 @@ public class ClientController {
         return map(entity);
     }
 
-    @GetMapping(path = "/fetchTopClients", produces = APPLICATION_JSON_VALUE) // TODO local date?
-    public List<ClientDTO> fetchTopClients(@RequestParam long amount, @RequestParam LocalDate since) {
-        return List.of(); // TODO
+    @GetMapping(path = "/fetchTopClients", produces = APPLICATION_JSON_VALUE)
+    public List<ClientDTO> fetchTopClients(@RequestParam int amount, @RequestParam @DateTimeFormat(iso = DATE) @NonNull LocalDate since) {
+        return service.fetchTopClients(amount, since).stream()
+                .map(ClientDTOMapper::map)
+                .toList();
     }
 
     @PatchMapping(path = "/update", consumes = APPLICATION_JSON_VALUE)
-    public void update(@RequestBody @NonNull @Valid UpdatedClientDTO client) {
+    public void update(@Valid @RequestBody @NonNull UpdatedClientDTO client) {
         var currentEntity = service.fetch(client.identifier());
         var updatedEntity = map(client, currentEntity);
         service.update(updatedEntity);

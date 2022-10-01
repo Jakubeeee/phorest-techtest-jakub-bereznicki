@@ -4,10 +4,13 @@ import com.jakubeeee.misc.CsvReader;
 import com.jakubeeee.misc.DataNotFoundException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -36,6 +39,12 @@ public class ClientService {
 
     public List<ClientEntity> fetch(@NonNull List<String> identifiers) {
         return repository.findAllByIdentifierIn(identifiers);
+    }
+
+    public List<ClientEntity> fetchTopClients(int amount, @NonNull LocalDate since) {
+        var instant = since.atStartOfDay(ZoneId.of("UTC")).toInstant();
+        var pageable = Pageable.ofSize(amount);
+        return repository.findTopClients(pageable, instant);
     }
 
     public void update(@NonNull ClientEntity client) {

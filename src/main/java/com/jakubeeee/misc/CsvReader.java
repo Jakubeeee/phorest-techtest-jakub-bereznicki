@@ -2,6 +2,7 @@ package com.jakubeeee.misc;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.io.*;
 import java.util.List;
@@ -11,7 +12,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public final class CsvReader {
 
-    public static <T> List<T> read(InputStream data, Class<T> type) {
+    public static <T> List<T> read(@NonNull InputStream data, @NonNull Class<T> type) {
         try (var reader = new BufferedReader(new InputStreamReader(data))) {
             return read(reader, type);
         } catch (IOException e) {
