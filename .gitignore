@@ -14,3 +14,6 @@
 .idea/
 *.iml
 out/
+
+# Maven
+target/

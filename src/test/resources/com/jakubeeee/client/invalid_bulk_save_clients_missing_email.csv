@@ -1,0 +1,11 @@
+id,first_name,last_name,email,phone,gender,banned
+test_identifier1,first_name1,last_name1,,123456789,Male,false
+test_identifier2,first_name2,last_name2,email2@mail.com,987654321,Male,false
+test_identifier3,first_name3,last_name3,,284.579.1376,Male,false
+test_identifier4,first_name4,last_name4,email4@mail.com,739-115-2646,Female,false
+test_identifier5,first_name5,last_name5,,(665) 979-8685,Male,false
+test_identifier6,first_name6,last_name6,email6@mail.com,(845) 101-3658,Male,false
+test_identifier7,first_name7,last_name7,,(723) 130-5382,Female,false
+test_identifier8,first_name8,last_name8,email8@mail.com,1-367-902-6592,Female,false
+test_identifier9,first_name9,last_name9,,(770) 519-2189,Female,true
+test_identifier10,first_name10,last_name10,email10@mail.com,1-367-902-6592,Female,true

@@ -13,6 +13,17 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8080/client/bulkSave
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="clients.csv"
+Content-Type: text/csv
+
+< ./clients.csv
+--WebAppBoundary--
+
+###
 GET http://localhost:8080/client/fetch/test_identifier
 
 ###

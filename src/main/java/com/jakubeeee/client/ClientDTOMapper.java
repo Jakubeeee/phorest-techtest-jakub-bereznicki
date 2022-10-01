@@ -1,7 +1,11 @@
 package com.jakubeeee.client;
 
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import static lombok.AccessLevel.PRIVATE;
+
+@NoArgsConstructor(access = PRIVATE)
 final class ClientDTOMapper {
 
     static ClientDTO map(@NonNull ClientEntity entity) {
