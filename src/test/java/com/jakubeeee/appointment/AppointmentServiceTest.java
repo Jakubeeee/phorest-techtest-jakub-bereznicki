@@ -45,7 +45,7 @@ final class AppointmentServiceTest {
         @Test
         void shouldNotThrow_whenBulkSavingAppointmentsFromValidFile() {
             // GIVEN
-            given(clientService.fetch(appointmentIdentifiers())).willReturn(clients(10));
+            given(clientService.fetch(clientIdentifiers())).willReturn(clients(10));
 
             var file = readFile(AppointmentControllerTest.class, TEST_FILE_NAME);
 
@@ -56,7 +56,7 @@ final class AppointmentServiceTest {
         @Test
         void shouldThrow_whenBulkSavingAppointmentsReferencingNonExistingClients() {
             // GIVEN
-            given(clientService.fetch(appointmentIdentifiers())).willReturn(clients(5));
+            given(clientService.fetch(clientIdentifiers())).willReturn(clients(5));
 
             var file = readFile(AppointmentControllerTest.class, TEST_FILE_NAME);
 
@@ -79,7 +79,7 @@ final class AppointmentServiceTest {
             assertThrows(RuntimeException.class, () -> service.bulkSave(file));
         }
 
-        private static List<String> appointmentIdentifiers() {
+        private static List<String> clientIdentifiers() {
             return rangeClosed(11, 20)
                     .mapToObj(i -> "test_identifier" + i)
                     .toList();

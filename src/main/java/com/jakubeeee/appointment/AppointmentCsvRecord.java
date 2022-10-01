@@ -9,16 +9,16 @@ import java.time.OffsetDateTime;
 @Data
 public final class AppointmentCsvRecord {
     @CsvBindByName(column = "id", required = true)
-    String identifier;
+    private String identifier;
 
     @CsvBindByName(column = "client_id", required = true)
-    String clientIdentifier;
+    private String clientIdentifier;
 
     @CsvDate(value = "yyyy-MM-dd HH:mm:ss X")
     @CsvBindByName(column = "start_time", required = true)
-    OffsetDateTime startTime;
+    private OffsetDateTime startTime;
 
     @CsvDate(value = "yyyy-MM-dd HH:mm:ss X")
     @CsvBindByName(column = "end_time", required = true)
-    OffsetDateTime endTime;
+    private OffsetDateTime endTime;
 }

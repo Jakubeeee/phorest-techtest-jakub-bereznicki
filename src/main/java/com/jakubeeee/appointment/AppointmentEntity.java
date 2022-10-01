@@ -24,9 +24,9 @@ public class AppointmentEntity extends JpaEntity {
     private ClientEntity client;
 
     @Column(name = "START_TIME", nullable = false, updatable = false)
-    private Instant lastName;
+    private Instant startTime;
 
     @Column(name = "END_TIME", nullable = false, updatable = false)
-    private Instant email;
+    private Instant endTime;
 
 }

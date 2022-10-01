@@ -1,0 +1,11 @@
+id,appointment_id,name,price,loyalty_points
+test_identifier1,test_identifier11,,20.0,20
+test_identifier2,test_identifier12,Conditioner,10.0,10
+test_identifier3,test_identifier13, Gel,21.5,20
+test_identifier4,test_identifier14,Cleanser,20.0,20
+test_identifier5,test_identifier15,,10.0,10
+test_identifier6,test_identifier16,Anti Ageing Cream,15.0,15
+test_identifier7,test_identifier17,,20.0,10
+test_identifier8,test_identifier18,Shampoo,19.5,20
+test_identifier9,test_identifier19,,10.0,10
+test_identifier10,test_identifier20,Shampoo,19.5,20

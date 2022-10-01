@@ -31,6 +31,10 @@ public class AppointmentService {
         repository.saveAll(appointments);
     }
 
+    public List<AppointmentEntity> fetch(@NonNull List<String> identifiers) {
+        return repository.findAllByIdentifierIn(identifiers);
+    }
+
     private List<AppointmentCsvRecord> readCsv(InputStream data) {
         return CsvReader.read(data, AppointmentCsvRecord.class)
                 .stream()

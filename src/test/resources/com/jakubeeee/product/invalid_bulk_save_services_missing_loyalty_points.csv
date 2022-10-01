@@ -1,0 +1,11 @@
+id,appointment_id,name,price,loyalty_points
+test_identifier1,test_identifier11,Luxury Tri-Active Facial,35.0,
+test_identifier2,test_identifier12,Scalp Massage,21.0,20
+test_identifier3,test_identifier13,Pedicure,46.0,
+test_identifier4,test_identifier14,Skin Peel,60.0,60
+test_identifier5,test_identifier15,Luxury Tri-Active Facial,35.0,
+test_identifier6,test_identifier16,Blowdry,20.0,20
+test_identifier7,test_identifier17,Skin Peel,60.0,
+test_identifier8,test_identifier18,Spray Tan,18.0,20
+test_identifier9,test_identifier19,Eyebrow Wax,15.0,
+test_identifier10,test_identifier20,Blowdry,20.0,20

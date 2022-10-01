@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/purchase/bulkSave
+POST http://localhost:8080/product/purchase/bulkSave
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary

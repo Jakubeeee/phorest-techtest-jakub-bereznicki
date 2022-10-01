@@ -1,13 +1,11 @@
 package com.jakubeeee.client;
 
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import static com.jakubeeee.misc.CustomCollectors.toSingleton;
 import static java.util.Arrays.stream;
 
-@Getter
 @RequiredArgsConstructor
 public enum Gender {
     MALE("Male"),

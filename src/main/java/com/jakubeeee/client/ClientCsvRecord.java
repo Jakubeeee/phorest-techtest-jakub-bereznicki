@@ -6,17 +6,17 @@ import lombok.Data;
 @Data
 public final class ClientCsvRecord {
     @CsvBindByName(column = "id", required = true)
-    String identifier;
+    private String identifier;
     @CsvBindByName(column = "first_name", required = true)
-    String firstName;
+    private String firstName;
     @CsvBindByName(column = "last_name", required = true)
-    String lastName;
+    private String lastName;
     @CsvBindByName(column = "email", required = true)
-    String email;
+    private String email;
     @CsvBindByName(column = "phone", required = true)
-    String phone;
+    private String phone;
     @CsvBindByName(column = "gender", required = true)
-    String gender;
+    private String gender;
     @CsvBindByName(column = "banned", required = true)
-    boolean banned;
+    private boolean banned;
 }
