@@ -4,7 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
 
 @Data
-public class ClientCsvRecord {
+public final class ClientCsvRecord {
     @CsvBindByName(column = "id", required = true)
     String identifier;
     @CsvBindByName(column = "first_name", required = true)

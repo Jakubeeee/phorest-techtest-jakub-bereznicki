@@ -11,6 +11,9 @@ import static lombok.AccessLevel.PRIVATE;
 public final class FileTools {
 
     public static InputStream readFile(@NonNull Class<?> relativeClass, @NonNull String fileName) {
-        return relativeClass.getResourceAsStream(fileName);
+        var stream = relativeClass.getResourceAsStream(fileName);
+        if (stream == null)
+            throw new IllegalStateException("Could not find file: <%s>".formatted(fileName));
+        return stream;
     }
 }

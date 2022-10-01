@@ -1,0 +1,10 @@
+###
+POST http://localhost:8080/service/bulkSave
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="services.csv"
+Content-Type: text/csv
+
+< ./services.csv
+--WebAppBoundary--

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,15 +22,20 @@ public class ClientService {
 
     @Transactional
     public void bulkSave(@NonNull InputStream data) {
-        CsvReader.read(data, ClientCsvRecord.class)
+        var clients = CsvReader.read(data, ClientCsvRecord.class)
                 .stream()
                 .map(ClientCsvMapper::map)
-                .forEach(this::save);
+                .toList();
+        repository.saveAll(clients);
     }
 
     public ClientEntity fetch(@NonNull String identifier) {
         return repository.findByIdentifier(identifier)
                 .orElseThrow(() -> new DataNotFoundException(ClientEntity.class, identifier));
+    }
+
+    public List<ClientEntity> fetch(@NonNull List<String> identifiers) {
+        return repository.findAllByIdentifierIn(identifiers);
     }
 
     public void update(@NonNull ClientEntity client) {
