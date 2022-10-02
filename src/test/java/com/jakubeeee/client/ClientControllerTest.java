@@ -10,9 +10,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import static com.jakubeeee.client.ClientControllerTestConstants.*;
+import static com.jakubeeee.client.Gender.FEMALE;
 import static com.jakubeeee.client.Gender.MALE;
 import static com.jakubeeee.tools.FileTools.readFile;
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -159,7 +164,104 @@ final class ClientControllerTest {
 
     @Nested
     final class TopClientsFetchingTest {
-        // TODO
+        private static final String ENDPOINT_URL = "/client/fetchTopClients";
+
+        @Test
+        void shouldReturnTopClients_whenFetchingWithProperAmountAndSinceDate() throws Exception {
+            // GIVEN
+            var amount = 3;
+            var since = LocalDate.MIN;
+            var topClients = List.of(
+                    new ClientEntity("test_identifier1", "test_first_name1", "test_last_name1", "test.email1@mail.com", "123456789", MALE, false),
+                    new ClientEntity("test_identifier2", "test_first_name2", "test_last_name2", "test.email2@mail.com", "223456789", FEMALE, false),
+                    new ClientEntity("test_identifier3", "test_first_name3", "test_last_name3", "test.email3@mail.com", "323456789", MALE, false)
+            );
+            given(service.fetchTopClients(amount, since)).willReturn(topClients);
+
+            // WHEN
+            var result = mockMvc.perform(
+                    get("%s?amount=%s&since=%s".formatted(ENDPOINT_URL, amount, since.format(ISO_LOCAL_DATE)))
+            );
+
+            // THEN
+            result.andExpect(status().isOk())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(content().json(MULTIPLE_VALID_CLIENTS, true));
+        }
+
+        @Test
+        void shouldReturnEmptyList_whenFetchingWithProperAmountAndSinceDateButNoAvailableClients() throws Exception {
+            // GIVEN
+            var amount = 3;
+            var since = LocalDate.MIN;
+            given(service.fetchTopClients(amount, since)).willReturn(List.of());
+
+            // WHEN
+            var result = mockMvc.perform(
+                    get("%s?amount=%s&since=%s".formatted(ENDPOINT_URL, amount, since.format(ISO_LOCAL_DATE)))
+            );
+
+            // THEN
+            result.andExpect(status().isOk())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(content().json("[]", true));
+        }
+
+        @Test
+        void shouldReturn400_whenFetchingWithMissingAmount() throws Exception {
+            // GIVEN
+            var since = LocalDate.MIN;
+
+            // WHEN
+            var result = mockMvc.perform(
+                    get("%s?since=%s".formatted(ENDPOINT_URL, since.format(ISO_LOCAL_DATE)))
+            );
+
+            // THEN
+            result.andExpect(status().isBadRequest());
+        }
+
+        @Test
+        void shouldReturn400_whenFetchingWithMissingSinceDate() throws Exception {
+            // GIVEN
+            var amount = 3;
+
+            // WHEN
+            var result = mockMvc.perform(
+                    get("%s?amount=%s".formatted(ENDPOINT_URL, amount))
+            );
+
+            // THEN
+            result.andExpect(status().isBadRequest());
+        }
+
+        @Test
+        void shouldReturn400_whenFetchingWithInvalidAmount() throws Exception {
+            // GIVEN
+            var amount = "something";
+
+            // WHEN
+            var result = mockMvc.perform(
+                    get("%s?amount=%s".formatted(ENDPOINT_URL, amount))
+            );
+
+            // THEN
+            result.andExpect(status().isBadRequest());
+        }
+
+        @Test
+        void shouldReturn400_whenFetchingWithInvalidSinceDate() throws Exception {
+            // GIVEN
+            var since = "something";
+
+            // WHEN
+            var result = mockMvc.perform(
+                    get("%s?since=%s".formatted(ENDPOINT_URL, since))
+            );
+
+            // THEN
+            result.andExpect(status().isBadRequest());
+        }
     }
 
     @Nested

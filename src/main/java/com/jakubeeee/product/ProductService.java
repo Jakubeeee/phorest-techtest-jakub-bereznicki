@@ -5,6 +5,7 @@ import com.jakubeeee.appointment.AppointmentService;
 import com.jakubeeee.misc.CsvReader;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import static com.jakubeeee.product.ProductCsvMapper.mapService;
 import static com.jakubeeee.product.ProductDiscriminator.PURCHASE;
 import static com.jakubeeee.product.ProductDiscriminator.SERVICE;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -25,11 +27,21 @@ public class ProductService {
     private final ProductRepository repository;
     private final AppointmentService appointmentService;
 
+    /**
+     * Saves multiple {@link ServiceEntity} data by parsing provided CSV file.
+     *
+     * @param data the CSV file
+     */
     @Transactional
     public void bulkSaveServices(@NonNull InputStream data) {
         bulkSaveProducts(data, SERVICE);
     }
 
+    /**
+     * Saves multiple {@link PurchaseEntity} data by parsing provided CSV file.
+     *
+     * @param data the CSV file
+     */
     @Transactional
     public void bulkSavePurchases(@NonNull InputStream data) {
         bulkSaveProducts(data, PURCHASE);
@@ -39,8 +51,9 @@ public class ProductService {
         var csvRecords = readCsv(data);
         var appointmentIdentifiers = extractAppointmentIdentifiers(csvRecords);
         var appointments = appointmentService.fetch(appointmentIdentifiers);
-        var services = mapEntities(csvRecords, appointments, type);
-        repository.saveAll(services);
+        var products = mapEntities(csvRecords, appointments, type);
+        log.info("Bulk saving <%s> products".formatted(products.size()));
+        repository.saveAll(products);
     }
 
     private List<ProductCsvRecord> readCsv(InputStream data) {

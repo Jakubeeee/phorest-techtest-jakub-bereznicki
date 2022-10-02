@@ -67,7 +67,7 @@ class ClientRepositoryTest {
         // THEN
         assertEquals(result.size(), 5);
         var actualTopClients = result.stream().map(ClientEntity::getIdentifier).toList();
-        var expectedTopClients = List.of("test_identifier6", "test_identifier5", "test_identifier1", "test_identifier2", "test_identifier8");
+        var expectedTopClients = List.of("test_identifier6", "test_identifier1", "test_identifier5", "test_identifier2", "test_identifier8");
         assertEquals(expectedTopClients, actualTopClients);
     }
 

@@ -1,0 +1,30 @@
+version: "3.8"
+
+networks:
+  techtest-network:
+
+services:
+  techtest-app:
+    build:
+      context: ./
+    image: techtest-app-image
+    container_name: techtest-app
+    ports:
+      - "8080:8080"
+      - "1044:1044"
+    networks:
+      - techtest-network
+    depends_on:
+      - techtest-db
+
+  techtest-db:
+    image: postgres:14.5
+    container_name: techtest-db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - techtest-network

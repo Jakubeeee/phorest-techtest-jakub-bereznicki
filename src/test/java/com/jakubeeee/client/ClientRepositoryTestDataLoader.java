@@ -52,9 +52,9 @@ final class ClientRepositoryTestDataLoader {
         persistAll(entityManager, appointment1, appointment2, appointment3, appointment4, appointment5, appointment6, appointment7, appointment8, appointment9, appointment10,
                 appointment11, appointment12, appointment13, appointment14, appointment15, appointment16, appointment17, appointment18, appointment19, appointment20);
 
-        var service1 = new ServiceEntity("test_identifier1001", appointment1, "test_name1", TEN, 15L);
-        var service2 = new ServiceEntity("test_identifier1002", appointment1, "test_name2", TWO, 20L);
-        var service3 = new ServiceEntity("test_identifier1003", appointment2, "test_name3", ONE, 5L);
+        var service1 = new ServiceEntity("test_identifier1001", appointment1, "test_name1", TEN, 10L);
+        var service2 = new ServiceEntity("test_identifier1002", appointment1, "test_name2", TWO, 50L);
+        var service3 = new ServiceEntity("test_identifier1003", appointment2, "test_name3", ONE, 15L);
         var service4 = new ServiceEntity("test_identifier1004", appointment2, "test_name4", TEN, 30L);
         var service5 = new ServiceEntity("test_identifier1005", appointment3, "test_name5", TWO, 60L);
         var service6 = new ServiceEntity("test_identifier1006", appointment3, "test_name6", TEN, 10L);
@@ -91,7 +91,7 @@ final class ClientRepositoryTestDataLoader {
         var purchase14 = new PurchaseEntity("test_identifier1114", appointment13, "test_name114", TEN, 35L);
         var purchase15 = new PurchaseEntity("test_identifier1115", appointment14, "test_name115", TWO, 30L);
         var purchase16 = new PurchaseEntity("test_identifier1116", appointment15, "test_name116", TEN, 65L);
-        var purchase17 = new PurchaseEntity("test_identifier1117", appointment16, "test_name117", TWO, 115L);
+        var purchase17 = new PurchaseEntity("test_identifier1117", appointment16, "test_name117", TWO, 110L);
         var purchase18 = new PurchaseEntity("test_identifier1118", appointment19, "test_name118", TWO, 30L);
         var purchase19 = new PurchaseEntity("test_identifier1119", appointment19, "test_name119", ONE, 20L);
         var purchase20 = new PurchaseEntity("test_identifier1120", appointment20, "test_name120", TWO, 45L);
